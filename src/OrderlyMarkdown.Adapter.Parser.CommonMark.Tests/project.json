@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "NETStandard.Library": "1.6.0",
+    "NSubstitute": "2.0.2",
+    "OrderlyMarkdown": "1.0.0-*",
+    "OrderlyMarkdown.Adapter.Parser.CommonMark": "1.0.0-*",
+    "xunit": "2.2.0"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dotnet54",
+        "portable-net45+win8"
+      ]
+    }
+  },
+
+  "runtimes": {
+    "win8-x64": {},
+    "ubuntu.14.04-x64": {}
+  },
+
+  "testRunner": "xunit"
+}
