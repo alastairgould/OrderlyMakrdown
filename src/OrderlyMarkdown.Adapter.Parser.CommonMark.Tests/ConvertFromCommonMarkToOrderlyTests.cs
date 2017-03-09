@@ -88,9 +88,9 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
             Assert.Collection(result.ChildrenAsEnumerable(), element =>
             {
                 Assert.IsType<CodeBlock>(element);
-                var paragraph = (CodeBlock)element;
-                Assert.Equal(code.Replace("\n", Environment.NewLine), paragraph.Value);
-                Assert.Equal(paragraph.Language, "csharp");
+                var codeBlockElement = (CodeBlock)element;
+                Assert.Equal(code.Replace("\n", Environment.NewLine), codeBlockElement.Value);
+                Assert.Equal(codeBlockElement.Language, "csharp");
 
             });
         }
