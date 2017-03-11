@@ -10,9 +10,10 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
         [Fact]
         public void ConvertingADocument()
         {
-            var converter = new ConvertFromCommonMarkToOrderly();
+            var SUT = new ConvertFromCommonMarkToOrderly();
             var block = CreateDocumentBlock();
-            var result = converter.Convert(block);
+
+            var result = SUT.Convert(block);
 
             Assert.NotNull(result);
             Assert.IsType<Document>(result);
@@ -22,7 +23,7 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
         [Fact]
         public void ConvertingAHeader()
         {
-            var converter = new ConvertFromCommonMarkToOrderly();
+            var SUT = new ConvertFromCommonMarkToOrderly();
             var headerBlock = new Block(BlockTag.AtxHeading, 0)
             {
                 Heading = new HeadingData(5),
@@ -30,7 +31,7 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
             };
             var block = CreateDocumentBlock(headerBlock);
 
-            var result = converter.Convert(block);
+            var result = SUT.Convert(block);
 
             Assert.Collection(result.ChildrenAsEnumerable(), element =>
             {
@@ -39,22 +40,20 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
                 Assert.Equal(header.Value, "Header");
                 Assert.Equal(header.HeaderLevel, 5);
             });
-        }
-
-        
+        }   
 
         [Fact]
         public void ConvertingAParagraph()
         {
             var paragraphText = @"Lorem ipsum dolor sit amet, choro dolorum vocibus est et";
-            var converter = new ConvertFromCommonMarkToOrderly();
+            var SUT = new ConvertFromCommonMarkToOrderly();
             var paragraphBlock = new Block(BlockTag.Paragraph, 0)
             {
                 InlineContent = new Inline(paragraphText)
             };
             var block = CreateDocumentBlock(paragraphBlock);
 
-            var result = converter.Convert(block);
+            var result = SUT.Convert(block);
 
             Assert.Collection(result.ChildrenAsEnumerable(), element =>
             {
@@ -72,7 +71,7 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
             var stringContent = new StringContent();
             stringContent.Append(code, 0, code.Length);
 
-            var converter = new ConvertFromCommonMarkToOrderly();
+            var SUT = new ConvertFromCommonMarkToOrderly();
             var codeBlock = new Block(BlockTag.FencedCode, 0)
             {
                 StringContent = stringContent,
@@ -83,7 +82,7 @@ namespace OrderlyMarkdown.Adapter.Parser.CommonMark.Tests
             };
             var block = CreateDocumentBlock(codeBlock);
 
-            var result = converter.Convert(block);
+            var result = SUT.Convert(block);
 
             Assert.Collection(result.ChildrenAsEnumerable(), element =>
             {
