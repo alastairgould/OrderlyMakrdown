@@ -11,63 +11,45 @@ namespace OrderlyMarkdown.Tests
         [Fact]
         public void WhenTraversingDocumentNode()
         {
-            var document = new Document(new List<IDocumentElement>());
+            var SUT = new Document(new List<IDocumentElement>());
             var visitor = Substitute.For<IPrettyPrinter>();
 
-            document.Traverse(visitor);
+            SUT.Traverse(visitor);
 
-            visitor
-                .Received(1)
-                .PrintDocument(Arg.Is(document));
+            visitor.Received(1).PrintDocument(Arg.Is(SUT));
         }
 
         [Fact]
         public void WhenTraversingAHeaderNode()
         {
-            var header = new Heading("Testing", 1);
+            var SUT = new Heading("Testing", 1);
             var visitor = Substitute.For<IPrettyPrinter>();
 
-            header.Traverse(visitor);
+            SUT.Traverse(visitor);
 
-            visitor
-                .Received(1)
-                .PrintHeader(Arg.Is<Heading>(param =>
-                    param.Value == header.Value && 
-                    param.HeaderLevel == header.HeaderLevel));
+            visitor.Received(1).PrintHeader(Arg.Is(SUT));
         }
 
         [Fact]
         public void WhenTraversingAParagraphNode()
         {
-            var paragraph = new Paragraph("Testing");
+            var SUT = new Paragraph("Testing");
             var visitor = Substitute.For<IPrettyPrinter>();
 
-            paragraph.Traverse(visitor);
+            SUT.Traverse(visitor);
 
-            visitor
-                .Received(1)
-                .PrintParagraph(Arg.Is<Paragraph>(param =>
-                    param.Value == paragraph.Value));
+            visitor.Received(1).PrintParagraph(Arg.Is(SUT));
         }
 
         [Fact]
         public void WhenTraversingACodeBlock()
         {
-            var header = new CodeBlock()
-            {
-                Value = "test",
-                Language = "csharp"
-            };
-
+            var SUT = new CodeBlock();
             var visitor = Substitute.For<IPrettyPrinter>();
 
-            header.Traverse(visitor);
+            SUT.Traverse(visitor);
 
-            visitor
-                .Received(1)
-                .PrintCodeBlock(Arg.Is<CodeBlock>(param =>
-                    param.Value == header.Value &&
-                    param.Language == header.Language));
+            visitor.Received(1).PrintCodeBlock(Arg.Is(SUT));
         }
     }
 }
