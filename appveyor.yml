@@ -1,0 +1,13 @@
+version: 0.1.{build}
+pull_requests:
+  do_not_increment_build_number: true
+branches:
+  only:
+  - master
+image: Visual Studio 2015
+before_build:
+- ps: dotnet restore
+build:
+  verbosity: minimal
+test_script:
+- ps: ForEach ($folder in (Get-ChildItem -Path .\src\ -Directory -Filter *.Tests)) { dotnet test $folder.FullName -xml ($folder.FullName + "\xunit-results.xml") }
